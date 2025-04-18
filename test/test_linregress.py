@@ -17,7 +17,6 @@ def _test_get_linregress_consistency(**linregress_kwargs):
         target=animal_neurons,
         num_parallel_jobs=1,
         num_bootstrap_iters=10,
-        map_kwargs={ "map_type": "identity" }
     )
     kwargs.update(linregress_kwargs)
     results = get_linregress_consistency(**kwargs)
@@ -53,12 +52,14 @@ def test_ridge():
 def test_rsa():
     result = _test_get_linregress_consistency(
         metric="rsa_pearsonr",
+        map_kwargs={ "map_type": "identity" },
         splits=make_splits(0, num_stimuli=NUM_STIMULI),
     )
     print(f"median rxysb: {np.nanmedian(result["test"]["r_xy_n_sb"])}")
 
     result = _test_get_linregress_consistency(
         metric="rsa_spearmanr",
+        map_kwargs={ "map_type": "identity" },
         splits=make_splits(0, num_stimuli=NUM_STIMULI),
     )
     print(f"median rxysb: {np.nanmedian(result["test"]["r_xy_n_sb"])}")
