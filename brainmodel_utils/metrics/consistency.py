@@ -262,7 +262,6 @@ def get_linregress_consistency(
             Supported metrics: "pearsonr", "spearmanr", "rsa_pearsonr", "rsa_spearmanr"
     splits (optional): Your own list of {"train", "test"} split indices.
             If "splits" is None, you can additionally specify train_frac and num_train_test_splits to generate your own.
-            "rsa_*" metrics do not use train/test splits, so this is ignored in that case.
 
     Returns (see README for full details):
     --------------------------------------
@@ -314,5 +313,5 @@ def get_linregress_consistency(
             xarray_dims=["trial_bootstrap_iters", "train_test_splits", "units"],
         )
     else:
-        results_dict = concat_dict_sp(results_arr, partition_names=results_arr[0].keys())
+        results_dict = concat_dict_sp(results_arr)
     return results_dict
