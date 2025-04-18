@@ -238,29 +238,29 @@ def get_linregress_consistency_persphalftrial(
 def get_linregress_consistency(
     source,
     target,
-    map_kwargs={ "map_type": "identity" },
+    map_kwargs,
     num_bootstrap_iters=1000,
     num_parallel_jobs=1,
     start_seed=1234,
     metric="pearsonr",
+    splits=None,
     **kwargs
 ):
     """
     The main function for computing the linear regression consistency (noise corrected)
     between source and target.
 
+    Arguments:
+    -------------------
     source: Either model features (stimuli x units), or neural features (trials x stimuli x units)
     target: Neural features (trials x stimuli x units), usually from a different animal if the source features are neural too.
     map_kwargs: Either a dict or a list of dicts (one per train/test split) specifying the linear regression parameters.
     num_bootstrap_iters: How many split-halves to compute.
     num_parallel_jobs: Number of parallel jobs to parallelize the outermost for loop over split-half trials.
     start_seed: Starting seed for generating split halves (for reproducibility).
-
-    Optional Arguments:
-    -------------------
-    metric: Correlation metric (across stimuli) used per neuron.
+    metric (optional): Correlation metric (across stimuli) used per neuron.
             Supported metrics: "pearsonr", "spearmanr", "rsa_pearsonr", "rsa_spearmanr"
-    splits: Your own list of {"train", "test"} split indices.
+    splits (optional): Your own list of {"train", "test"} split indices.
             If "splits" is None, you can additionally specify train_frac and num_train_test_splits to generate your own.
             "rsa_*" metrics do not use train/test splits, so this is ignored in that case.
 
